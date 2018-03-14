@@ -54,6 +54,8 @@ export default {
 					}
         		that.guideId=response.data.guideId
         		that.getGuide()
+        		var title=document.getElementsByTagName("title")[0];
+				title.innerHTML= response.data.title
         		
         	},function(response){})
         },

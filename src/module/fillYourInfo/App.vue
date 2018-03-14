@@ -35,70 +35,67 @@
 
 				</div>
 				<div class="addOrderContact">
+
 					<ul>
 						<li v-if="infor.id==0">
-
-							<h4>Key Traveler 
-								<label v-if="oderFirstName&&oderlastName&&emailAddress&&phone">
-									<span>(If the key traveller is the same as the reservee, please ticket the box)</span>
-									<em v-if="check==0" @click="checkFn(0)" class="checkbox"></em>
-									<em v-if="check==1"@click="checkFn(1)" class="checkbox backgrond iconfont">&#xe61e;</em>
-								</label>
-								
-								<!--<span class="checkbox iconfont"></span>-->
-							</h4>
-							<div class="name">
-								<div class="firstName">
-									<p>First name<b>*</b></p>
-									<input :class="{err:TravellerFirstNameErr}" @focus="fousFirst()" v-model="TravellerFirstName" />
-
-								</div>
-								<div class="lastname">
-									<p>Last name<b>*</b></p>
-									<input :class="{err:TravellerlastNameErr}" @focus="fousLastName()" v-model="TravellerlastName" />
-								</div>
+							<div class="check">
+								<span>(Check this box if the contact for the reservation does NOT match the Primary Traveler.)</span>
+								<em v-if="check==0" @click="checkFn(0)" class="checkbox"></em>
+								<em v-if="check==1" @click="checkFn(1)" class="checkbox backgrond iconfont">&#xe61e;</em>
 							</div>
-							<div class="nuber">
-								<div class="paddnumber">
-									<p>Email Address<b>*</b></p>
-									<input :class="{err:TravelleremailAddressErr}" @focus="fousEmal" v-model="TravelleremailAddress" />
+							<div v-if="check==1">
+								<h4>Key Traveler </h4>
+								<div class="name">
+									<div class="firstName">
+										<p>First name<b>*</b></p>
+										<input :class="{err:TravellerFirstNameErr}" @focus="fousFirst()" v-model="TravellerFirstName" />
+
+									</div>
+									<div class="lastname">
+										<p>Last name<b>*</b></p>
+										<input :class="{err:TravellerlastNameErr}" @focus="fousLastName()" v-model="TravellerlastName" />
+									</div>
 								</div>
-								<div class="Mobilephone">
-									<p>Mobile phone<b>*</b></p>
-									<input :class="{err:TravellerphoneErr}" @focus="fousphonenumb()" v-model="Travellerphone" />
+								<div class="nuber">
+									<div class="paddnumber">
+										<p>Email Address<b>*</b></p>
+										<input :class="{err:TravelleremailAddressErr}" @focus="fousidcard()" v-model="TravelleremailAddress" />
+									</div>
+									<div class="Mobilephone">
+										<p>Mobile phone<b>*</b></p>
+										<input :class="{err:TravellerphoneErr}" @focus="fousphonenumb()" v-model="Travellerphone" />
+									</div>
 								</div>
 							</div>
 						</li>
 						<li v-if="infor.id==1">
-
-							<h4>Key Traveler 
-								<label v-if="oderFirstName&&oderlastName&&emailAddress&&phone">
-									<span>(If the key traveller is the same as the reservee, please ticket the box)</span>
-									<em v-if="check==0" @click="checkFn(0)" class="checkbox"></em>
-									<em v-if="check==1"@click="checkFn(1)" class="checkbox backgrond iconfont">&#xe61e;</em>
-								</label>
-								
-								<!--<span class="checkbox iconfont"></span>-->
-							</h4>
-							<div class="name">
-								<div class="firstName">
-									<p>First name<b>*</b></p>
-									<input :class="{err:TravellerFirstNameErr}" @focus="fousFirst()" v-model="TravellerFirstName" />
-
-								</div>
-								<div class="lastname">
-									<p>Last name<b>*</b></p>
-									<input :class="{err:TravellerlastNameErr}" @focus="fousLastName()" v-model="TravellerlastName" />
-								</div>
+							<div class="check">
+								<span>Check this box if the contact for the reservation does NOT match the Primary Traveler.</span>
+								<em v-if="check==0" @click="checkFn(0)" class="checkbox"></em>
+								<em v-if="check==1" @click="checkFn(1)" class="checkbox backgrond iconfont">&#xe61e;</em>
 							</div>
-							<div class="nuber">
-								<div class="paddnumber">
-									<p>Email Address<b>*</b></p>
-									<input :class="{err:TravelleremailAddressErr}" @focus="fousEmal" v-model="TravelleremailAddress" />
+							<div v-if="check==1">
+								<h4>Key Traveler</h4>
+								<div class="name">
+									<div class="firstName">
+										<p>First name<b>*</b></p>
+										<input :class="{err:TravellerFirstNameErr}" @focus="fousFirst()" v-model="TravellerFirstName" />
+
+									</div>
+									<div class="lastname">
+										<p>Last name<b>*</b></p>
+										<input :class="{err:TravellerlastNameErr}" @focus="fousLastName()" v-model="TravellerlastName" />
+									</div>
 								</div>
-								<div class="Mobilephone">
-									<p>Mobile phone</p>
-									<input :class="{err:TravellerphoneErr}" @focus="fousphonenumb()" v-model="Travellerphone" />
+								<div class="nuber">
+									<div class="paddnumber">
+										<p>Email Address<b>*</b></p>
+										<input :class="{err:TravelleremailAddressErr}" @focus="fousEmal" v-model="TravelleremailAddress" />
+									</div>
+									<div class="Mobilephone">
+										<p>Mobile phone</p>
+										<input :class="{err:TravellerphoneErr}" @focus="fousphonenumb()" v-model="Travellerphone" />
+									</div>
 								</div>
 							</div>
 						</li>
@@ -121,9 +118,7 @@
 							<h3>These Services Come from {{infor.enName}}</h3>
 							<p>{{infor.valueCarall}}</p>
 						</div>
-						<div class="gideheadlog">
-							<img :src="infor.logimg" />
-						</div>
+						
 					</div>
 					<div class="halfday" v-if="infor.startTimeHalfCar">
 						<b>Half day</b>
@@ -154,9 +149,7 @@
 							<h3>These Services Come from {{infor.enName}}</h3>
 							<p>{{infor.value}}</p>
 						</div>
-						<div class="gideheadlog">
-							<img :src="infor.logimg" />
-						</div>
+						
 					</div>
 					<div class="halfday" v-if="infor.startTimeHalfTour">
 						<b>Half day</b>
@@ -184,7 +177,7 @@
 				<div class="bookbtn">
 					<p>Pay with:</p>
 					<div class="payfor">
-						<img style="width:200px"  src="https://s3.us-east-2.amazonaws.com/localpanda.images/static/icon/stripe.png"/>
+						<img style="width:200px" src="https://s3.us-east-2.amazonaws.com/localpanda.images/static/icon/stripe.png" />
 					</div>
 					<div style=" width:316px;font-size: 16px;line-height: 20px;display: block; margin-top: 20px;"><b>Secure Payment:</b> </br>We use Stripe’s online payment system, which sends your payment info directly to Stripe’s secure servers, so your data is never sent to Local Panda’s servers and cannot be stolen.</div>
 				</div>
@@ -217,7 +210,7 @@
 				emailAddressErr: false,
 				phone: '',
 				phoneErr: false,
-				
+
 				TravellerFirstName: '',
 				TravellerFirstNameErr: false,
 				TravellerlastName: '',
@@ -226,15 +219,16 @@
 				TravelleremailAddressErr: false,
 				Travellerphone: '',
 				TravellerphoneErr: false,
-				
+
 				comments: '',
 				isShowAlertTitle: false, //弹框返回状态
 				alertMessage: "", //弹框内容
 				alertTitle: "", //弹框标题
 				logIn: '',
-				iserror:'',
-				isShowAlert:false,//错误
-				check: 0 //checked
+				iserror: '',
+				isShowAlert: false, //错误
+				check: 0, //checked
+				addOder:false
 
 			}
 
@@ -246,19 +240,21 @@
 			Alert
 
 		},
-		filters:{
-			sortDate:function(val){
-				var Dates=val.split(",");
-				for (var F = Dates.length;F;) Dates[--F] = [(new Date(Dates[F])).getTime(),Dates[F]]
-				Dates.sort(function(A,B){return A[0] - B[0]})
-				for (var F = Dates.length;F;) Dates[--F] = Dates[F][1]
+		filters: {
+			sortDate: function(val) {
+				var Dates = val.split(",");
+				for(var F = Dates.length; F;) Dates[--F] = [(new Date(Dates[F])).getTime(), Dates[F]]
+				Dates.sort(function(A, B) {
+					return A[0] - B[0]
+				})
+				for(var F = Dates.length; F;) Dates[--F] = Dates[F][1]
 				return Dates.join(',')
-				
+
 				//arr.sort()
 			}
 		},
 		methods: {
-			getIsShowAlert(val){
+			getIsShowAlert(val) {
 				this.isShowAlert = val;
 			},
 			getIsShowAlertFn(val) {
@@ -268,16 +264,12 @@
 				if(id == 0) {
 
 					this.check = 1
-					
-					this.TravellerFirstName = this.oderFirstName
-					console.log(this.TravellerFirstName)
-					this.TravellerlastName = this.oderlastName
-					this.TravelleremailAddress = this.emailAddress
-					this.Travellerphone = this.phone
+
+				
 				} else {
 
 					this.check = 0
-					
+
 					this.TravellerFirstName = ''
 					this.TravellerlastName = ''
 					this.TravelleremailAddress = ''
@@ -343,126 +335,230 @@
 					that.emailAddressErr = true
 					that.isShowAlert = true
 					that.alertMessage = "There are required fields without values or with incorrect values. Please check the info you've provided and make sure all the required fields have been filled."
-				} else if(that.phone == ""||!regExp.isMobil(that.phone)) {
+				} else if(that.phone == "" || !regExp.isMobil(that.phone)) {
 					that.phoneErr = true
 					that.isShowAlert = true
 					that.alertMessage = "There are required fields without values or with incorrect values. Please check the info you've provided and make sure all the required fields have been filled."
-				} else if(that.TravellerFirstName == "" || regExp.isNub(that.TravellerFirstName) || regExp.isCode(that.TravellerFirstName)) {
-					that.TravellerFirstNameErr = true
-					that.isShowAlert = true
-					that.alertMessage = "There are required fields without values or with incorrect values. Please check the info you've provided and make sure all the required fields have been filled."
-				} else if(that.TravellerlastName == "" || regExp.isNub(that.TravellerlastName) || regExp.isCode(that.TravellerlastName)) {
-					that.TravellerlastNameErr = true
-					that.isShowAlert = true
-					that.alertMessage = "There are required fields without values or with incorrect values. Please check the info you've provided and make sure all the required fields have been filled."
-				} else if(!regExp.isEmail(that.TravelleremailAddress)) {
-					that.TravelleremailAddressErr = true
-					that.isShowAlert = true
-					that.alertMessage = "There are required fields without values or with incorrect values. Please check the info you've provided and make sure all the required fields have been filled."
-				} else if(that.Travellerphone == ""||!regExp.isMobil(that.Travellerphone)) {
-					that.TravellerphoneErr = true
-					that.isShowAlert = true
-					that.alertMessage = "There are required fields without values or with incorrect values. Please check the info you've provided and make sure all the required fields have been filled."
 				} else {
-					
-							
-						if(that.infor.id == 0) {
-								var cont = ''
-								if(this.infor.startTimeHalfCar && !this.infor.startTimeAllCar) {
-									cont = this.infor.halfcarpic * this.infor.startTimeHalfCar.split(',').length
-								} else if(this.infor.startTimeAllCar && !this.infor.startTimeHalfCar) {
-									cont = this.infor.allcarpic * this.infor.startTimeAllCar.split(',').length
-								} else {
-									cont = this.infor.halfcarpic * this.infor.startTimeHalfCar.split(',').length + this.infor.allcarpic * this.infor.startTimeAllCar.split(',').length
-								}
-								let obj = {
-									
-									userId:localStorage.getItem("userid"),
-									guideId: this.infor.guideId,
-									serviceType: this.infor.serviceType,
-									participants: parseInt(this.infor.valueCarall.substring(0, 1)),
-									hoursPerDay: this.infor.hoursPerDay,
-									fullDayPrice: this.infor.allcarpic,
-									halfDayPrice: this.infor.halfcarpic,
-									amount: cont,
-									currency: this.infor.currency,
-									comments: this.comments?this.comments:null,
-									fullDates: this.infor.startTimeAllCar ? this.infor.startTimeAllCar.split(',') : null,
-									halfDates: this.infor.startTimeHalfCar ? this.infor.startTimeHalfCar.split(',') : null,
-									contactInfo: {
-										lastName: that.oderlastName,
-										firstName: that.oderFirstName,
-										phoneNumber: that.phone,
-										emailAddress: that.emailAddress,
-									},
-									travelerInfo: {
-										firstName: that.TravellerFirstName,
-										lastName: that.TravellerlastName,
-										phoneNumber: that.Travellerphone,
-										emailAddress: that.TravelleremailAddress
-									},
-								}
-								
-								that.axios.put("https://www.localpanda.com/api/order/create", JSON.stringify(obj), {
-									headers: {
-										'Content-Type': 'application/json; charset=UTF-8'
-									}
-								}).then(function(response) {
-									window.location.href="payNow.html?objectId="+response.data
-								}, function(response) {})
-							} else if(that.infor.id == 1) {
-								//console.log(111)
-								var cont = ''
-								if(this.infor.startTimeHalfTour && !this.infor.startTimeAllTour) {
-									cont = this.infor.halfTourpic * this.infor.startTimeHalfTour.split(',').length
-								} else if(this.infor.startTimeAllTour && !this.infor.startTimeHalfTour) {
-									cont = this.infor.allTourpic * this.infor.startTimeAllTour.split(',').length
-								} else {
-									cont =this.infor.halfTourpic* this.infor.startTimeHalfTour.split(',').length + this.infor.allTourpic * this.infor.startTimeAllTour.split(',').length
-								
-								}
-								let obj = {
-									userId:localStorage.getItem("userid"),
-									//userId: "10024",
-									guideId: this.infor.guideId,
-									serviceType: this.infor.serviceType,
-									participants: parseInt(this.infor.value.substring(0, 1)),
-									hoursPerDay: this.infor.hoursPerDay,
-									fullDayPrice: this.infor.allTourpic,
-									halfDayPrice: this.infor.halfTourpic,
-									amount: cont,
-									currency: this.infor.currency,
-									comments: this.comments?this.comments:null,
-									fullDates: this.infor.startTimeAllTour ? this.infor.startTimeAllTour.split(',') : null,
-									halfDates: this.infor.startTimeHalfTour ? this.infor.startTimeHalfTour.split(',') : null,
-									contactInfo: {
-										lastName: that.oderlastName,
-										firstName: that.oderFirstName,
-										phoneNumber: that.phone,
-										emailAddress: that.emailAddress,
-									},
-									travelerInfo: {
-										firstName: that.TravellerFirstName,
-										lastName: that.TravellerlastName,
-										phoneNumber: that.Travellerphone,
-										emailAddress: that.TravelleremailAddress
-									},
+					if(that.infor.id == 0) {
+						if(that.check == 1) {
+							if(that.TravellerFirstName == "" || regExp.isNub(that.TravellerFirstName) || regExp.isCode(that.TravellerFirstName)) {
+								that.TravellerFirstNameErr = true
+								that.isShowAlert = true
+								that.alertMessage = "There are required fields without values or with incorrect values. Please check the info you've provided and make sure all the required fields have been filled."
+							} else if(that.TravellerlastName == "" || regExp.isNub(that.TravellerlastName) || regExp.isCode(that.TravellerlastName)) {
+								that.TravellerlastNameErr = true
+								that.isShowAlert = true
+								that.alertMessage = "There are required fields without values or with incorrect values. Please check the info you've provided and make sure all the required fields have been filled."
+							} else if(!regExp.isEmail(that.TravelleremailAddress)) {
+								that.TravelleremailAddressErr = true
+								that.isShowAlert = true
+								that.alertMessage = "There are required fields without values or with incorrect values. Please check the info you've provided and make sure all the required fields have been filled."
+							} else if(that.Travellerphone == "" || !regExp.isMobil(that.Travellerphone)) {
+								that.TravellerphoneErr = true
+								that.isShowAlert = true
+								that.alertMessage = "There are required fields without values or with incorrect values. Please check the info you've provided and make sure all the required fields have been filled."
+							} else {
+								 
+											var cont = ''
+											if(this.infor.startTimeHalfCar && !this.infor.startTimeAllCar) {
+												cont = this.infor.halfcarpic * this.infor.startTimeHalfCar.split(',').length
+											} else if(this.infor.startTimeAllCar && !this.infor.startTimeHalfCar) {
+												cont = this.infor.allcarpic * this.infor.startTimeAllCar.split(',').length
+											} else {
+												cont = this.infor.halfcarpic * this.infor.startTimeHalfCar.split(',').length + this.infor.allcarpic * this.infor.startTimeAllCar.split(',').length
+											}
+											let obj = {
 
-								}
-								
-								that.axios.put("https://www.localpanda.com/api/order/create", JSON.stringify(obj), {
-									headers: {
-										'Content-Type': 'application/json; charset=UTF-8'
+												userId: localStorage.getItem("userid"),
+												guideId: this.infor.guideId,
+												serviceType: this.infor.serviceType,
+												participants: parseInt(this.infor.valueCarall.substring(0, 1)),
+												hoursPerDay: this.infor.hoursPerDay,
+												fullDayPrice: this.infor.allcarpic,
+												halfDayPrice: this.infor.halfcarpic,
+												amount: cont,
+												currency: this.infor.currency,
+												comments: this.comments ? this.comments : null,
+												fullDates: this.infor.startTimeAllCar ? this.infor.startTimeAllCar.split(',') : null,
+												halfDates: this.infor.startTimeHalfCar ? this.infor.startTimeHalfCar.split(',') : null,
+												contactInfo: {
+													lastName: that.oderlastName,
+													firstName: that.oderFirstName,
+													phoneNumber: that.phone,
+													emailAddress: that.emailAddress,
+												},
+												travelerInfo: {
+													firstName: that.TravellerFirstName,
+													lastName: that.TravellerlastName,
+													phoneNumber: that.Travellerphone,
+													emailAddress: that.TravelleremailAddress
+												},
+											}
+
+											that.axios.put("https://www.localpanda.com/api/order/create", JSON.stringify(obj), {
+												headers: {
+													'Content-Type': 'application/json; charset=UTF-8'
+												}
+											}).then(function(response) {
+												window.location.href = "payNow.html?objectId=" + response.data
+											}, function(response) {})
+										}
+									} else {
+										var cont = ''
+										if(this.infor.startTimeHalfCar && !this.infor.startTimeAllCar) {
+											cont = this.infor.halfcarpic * this.infor.startTimeHalfCar.split(',').length
+										} else if(this.infor.startTimeAllCar && !this.infor.startTimeHalfCar) {
+											cont = this.infor.allcarpic * this.infor.startTimeAllCar.split(',').length
+										} else {
+											cont = this.infor.halfcarpic * this.infor.startTimeHalfCar.split(',').length + this.infor.allcarpic * this.infor.startTimeAllCar.split(',').length
+										}
+										let obj = {
+
+											userId: localStorage.getItem("userid"),
+											guideId: this.infor.guideId,
+											serviceType: this.infor.serviceType,
+											participants: parseInt(this.infor.valueCarall.substring(0, 1)),
+											hoursPerDay: this.infor.hoursPerDay,
+											fullDayPrice: this.infor.allcarpic,
+											halfDayPrice: this.infor.halfcarpic,
+											amount: cont,
+											currency: this.infor.currency,
+											comments: this.comments ? this.comments : null,
+											fullDates: this.infor.startTimeAllCar ? this.infor.startTimeAllCar.split(',') : null,
+											halfDates: this.infor.startTimeHalfCar ? this.infor.startTimeHalfCar.split(',') : null,
+											contactInfo: {
+												lastName: that.oderlastName,
+												firstName: that.oderFirstName,
+												phoneNumber: that.phone,
+												emailAddress: that.emailAddress,
+											}
+										}
+										if(that.addOder==false){
+											that.addOder=true
+											that.axios.put("https://www.localpanda.com/api/order/create", JSON.stringify(obj), {
+												headers: {
+													'Content-Type': 'application/json; charset=UTF-8'
+												}
+											}).then(function(response) {
+												window.location.href = "payNow.html?objectId=" + response.data
+											}, function(response) {})
+										}
+										
 									}
-								}).then(function(response) {
-									window.location.href="payNow.html?objectId="+response.data
-									
-								}, function(response) {})
+								} else {
+									if(that.check == 1) {
+										if(that.TravellerFirstName == "" || regExp.isNub(that.TravellerFirstName) || regExp.isCode(that.TravellerFirstName)) {
+											that.TravellerFirstNameErr = true
+											that.isShowAlert = true
+											that.alertMessage = "There are required fields without values or with incorrect values. Please check the info you've provided and make sure all the required fields have been filled."
+										} else if(that.TravellerlastName == "" || regExp.isNub(that.TravellerlastName) || regExp.isCode(that.TravellerlastName)) {
+											that.TravellerlastNameErr = true
+											that.isShowAlert = true
+											that.alertMessage = "There are required fields without values or with incorrect values. Please check the info you've provided and make sure all the required fields have been filled."
+										} else if(!regExp.isEmail(that.TravelleremailAddress)) {
+											that.TravelleremailAddressErr = true
+											that.isShowAlert = true
+											that.alertMessage = "There are required fields without values or with incorrect values. Please check the info you've provided and make sure all the required fields have been filled."
+										} else if(that.Travellerphone == "" || !regExp.isMobil(that.Travellerphone)) {
+											that.TravellerphoneErr = true
+											that.isShowAlert = true
+											that.alertMessage = "There are required fields without values or with incorrect values. Please check the info you've provided and make sure all the required fields have been filled."
+										} else {
+											var cont = ''
+											if(this.infor.startTimeHalfTour && !this.infor.startTimeAllTour) {
+												cont = this.infor.halfTourpic * this.infor.startTimeHalfTour.split(',').length
+											} else if(this.infor.startTimeAllTour && !this.infor.startTimeHalfTour) {
+												cont = this.infor.allTourpic * this.infor.startTimeAllTour.split(',').length
+											} else {
+												cont = this.infor.halfTourpic * this.infor.startTimeHalfTour.split(',').length + this.infor.allTourpic * this.infor.startTimeAllTour.split(',').length
+
+											}
+											let obj = {
+												userId: localStorage.getItem("userid"),
+												//userId: "10024",
+												guideId: this.infor.guideId,
+												serviceType: this.infor.serviceType,
+												participants: parseInt(this.infor.value.substring(0, 1)),
+												hoursPerDay: this.infor.hoursPerDay,
+												fullDayPrice: this.infor.allTourpic,
+												halfDayPrice: this.infor.halfTourpic,
+												amount: cont,
+												currency: this.infor.currency,
+												comments: this.comments ? this.comments : null,
+												fullDates: this.infor.startTimeAllTour ? this.infor.startTimeAllTour.split(',') : null,
+												halfDates: this.infor.startTimeHalfTour ? this.infor.startTimeHalfTour.split(',') : null,
+												contactInfo: {
+													lastName: that.oderlastName,
+													firstName: that.oderFirstName,
+													phoneNumber: that.phone,
+													emailAddress: that.emailAddress,
+												},
+												travelerInfo: {
+													firstName: that.TravellerFirstName,
+													lastName: that.TravellerlastName,
+													phoneNumber: that.Travellerphone,
+													emailAddress: that.TravelleremailAddress
+												},
+
+											}
+
+											that.axios.put("https://www.localpanda.com/api/order/create", JSON.stringify(obj), {
+												headers: {
+													'Content-Type': 'application/json; charset=UTF-8'
+												}
+											}).then(function(response) {
+												window.location.href = "payNow.html?objectId=" + response.data
+
+											}, function(response) {})
+										}
+									} else {
+										var cont = ''
+											if(this.infor.startTimeHalfTour && !this.infor.startTimeAllTour) {
+												cont = this.infor.halfTourpic * this.infor.startTimeHalfTour.split(',').length
+											} else if(this.infor.startTimeAllTour && !this.infor.startTimeHalfTour) {
+												cont = this.infor.allTourpic * this.infor.startTimeAllTour.split(',').length
+											} else {
+												cont = this.infor.halfTourpic * this.infor.startTimeHalfTour.split(',').length + this.infor.allTourpic * this.infor.startTimeAllTour.split(',').length
+
+											}
+											let obj = {
+												userId: localStorage.getItem("userid"),
+												//userId: "10024",
+												guideId: this.infor.guideId,
+												serviceType: this.infor.serviceType,
+												participants: parseInt(this.infor.value.substring(0, 1)),
+												hoursPerDay: this.infor.hoursPerDay,
+												fullDayPrice: this.infor.allTourpic,
+												halfDayPrice: this.infor.halfTourpic,
+												amount: cont,
+												currency: this.infor.currency,
+												comments: this.comments ? this.comments : null,
+												fullDates: this.infor.startTimeAllTour ? this.infor.startTimeAllTour.split(',') : null,
+												halfDates: this.infor.startTimeHalfTour ? this.infor.startTimeHalfTour.split(',') : null,
+												contactInfo: {
+													lastName: that.oderlastName,
+													firstName: that.oderFirstName,
+													phoneNumber: that.phone,
+													emailAddress: that.emailAddress,
+												},
+											}
+
+											that.axios.put("https://www.localpanda.com/api/order/create", JSON.stringify(obj), {
+												headers: {
+													'Content-Type': 'application/json; charset=UTF-8'
+												}
+											}).then(function(response) {
+												window.location.href = "payNow.html?objectId=" + response.data
+
+											}, function(response) {})
+									}
+								}
 							}
 						}
 					
-			}
-
+			
+			
 		},
 		created: function() {
 			let that = this
@@ -471,18 +567,17 @@
 		mounted: function() {
 			this.logIn = window.localStorage.getItem("logstate")
 			this.goBackFn()
-			
 
 		},
 		watch: {
-			
+
 		}
 	}
 </script>
 <style lang="scss">
 	@import '../../assets/scss/_main.scss';
 	@import '../../assets/font/iconfont.css';
-	 #headercommon {
+	#headercommon {
 		box-shadow: 0px 2px 6px 0px rgba(53, 58, 63, 0.1);
 	}
 </style>
@@ -507,8 +602,7 @@
 						padding-bottom: 30px;
 						border-bottom: 1px solid #dde0e0;
 						.serviceform {
-							float: left;
-							width: 143px;
+							margin-top:20px;
 							h3 {
 								font-size: 18px;
 								margin-bottom: 0;
@@ -519,16 +613,7 @@
 								font-size: 18px
 							}
 						}
-						.gideheadlog {
-							width: 138px;
-							height: 92px;
-							float: left;
-							margin-left: 19px;
-							img {
-								width: 100%;
-								height: 100%;
-							}
-						}
+						
 					}
 					.halfday {
 						padding: 30px 0;
@@ -587,7 +672,7 @@
 					a {
 						font-size: 16px;
 						color: #dde0e0;
-						cursor:auto; 
+						cursor: auto;
 						&:first-child {
 							color: #353a3f;
 						}
@@ -611,7 +696,6 @@
 					h4 {
 						font-size: 18px;
 						font-weight: bold;
-						
 					}
 					.cont {
 						margin-top: 25px;
@@ -623,7 +707,7 @@
 								font-size: 18px;
 								margin-bottom: 10px;
 								font-weight: bold;
-								b{
+								b {
 									color: red;
 								}
 							}
@@ -657,31 +741,24 @@
 					ul {
 						li {
 							position: relative;
-							
 							border-bottom: 1px solid #dde0e0;
 							&:last-child {
 								border: none;
 							}
-							b {
-								color: red;
-							}
-							h4 {
-								font-size: 18px;
-								color: #353a3f;
-								margin-top: 40px;
-								font-weight: bold;
+							.check {
 								position: relative;
 								span {
 									font-size: 16px;
 									color: #878e95;
+									margin-left: 40px;
 								}
 								.checkbox {
 									position: absolute;
-									right: 0;
+									left: 0;
 									width: 26px;
 									height: 26px;
 									text-align: center;
-									border: 1px solid #1bbc9d;
+									border: 1px solid #dde0e0;
 									border-radius: 50%;
 									top: 50%;
 									margin-top: -16px;
@@ -693,6 +770,15 @@
 								.backgrond {
 									background-image: linear-gradient(270deg, #009efd 0%, #1bbc9d 100%);
 								}
+							}
+							b {
+								color: red;
+							}
+							h4 {
+								font-size: 18px;
+								color: #353a3f;
+								margin-top: 40px;
+								font-weight: bold;
 							}
 							.name {
 								display: flex;

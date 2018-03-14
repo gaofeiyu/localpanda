@@ -21,9 +21,7 @@
 							<p v-if="oderInfo.participants==1">{{oderInfo.participants}}person</p>
 							<p v-else>{{oderInfo.participants}}people</p>
 						</div>
-						<div class="gideheadlog">
-							<img :src="headPortraitUrl" />
-						</div>
+						
 					</div>
 					<div class="halfday" v-if="halfDates">
 						<b>Half day</b>
@@ -220,12 +218,12 @@
 				background: #fff;
 				padding: 30px 30px 40px;
 				width: 316px;
+				margin-top: 40px;
 				.head {
 					padding-bottom: 30px;
 					border-bottom: 1px solid #dde0e0;
 					.serviceform {
-						float: left;
-						width: 143px;
+						
 						h3 {
 							font-size: 18px;
 							margin-bottom: 0;
@@ -235,16 +233,7 @@
 							font-size: 18px
 						}
 					}
-					.gideheadlog {
-						width: 138px;
-						height: 92px;
-						float: left;
-						margin-left: 19px;
-						img {
-							width: 100%;
-							height: 100%;
-						}
-					}
+					
 				}
 				.halfday {
 					padding: 30px 0;

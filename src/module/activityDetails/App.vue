@@ -116,6 +116,7 @@ export default {
 					description.setAttribute("content",descriptionContent)
 					
         		}else{
+        			
         			window.location.href = "https://www.localpanda.com/falsePage.html"
         		}
 				

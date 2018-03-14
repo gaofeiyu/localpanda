@@ -7,10 +7,10 @@ module.exports = {
 		index: path.resolve(__dirname, '../dist/index.html'),
 		assetsRoot: path.resolve(__dirname, '../dist'),
 		assetsSubDirectory: 'static',
-		//assetsPublicPath: 'https://www.localpanda.com/',
+		assetsPublicPath: 'https://www.localpanda.com/',
 		assetsPublicPath: 'https://d2q486kjf9cwwu.cloudfront.net/',
 		//  assetsPublicPath: '../',
-		productionSourceMap: false, //压缩zip
+		//productionSourceMap: false, //压缩zip
 		// Gzip off by default as many popular static hosts such as
 		// Surge or Netlify already gzip all static assets for you.
 		// Before setting to `true`, make sure to:

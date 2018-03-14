@@ -21,9 +21,6 @@
 						<p v-if="opctions.adultNum==1&&opctions.childrenNum==0">1 Person</p>
 						<p v-else>{{opctions.adultNum+opctions.childrenNum}} People</p>
 					</div>
-					<div class="gideheadlog">
-						<img :src="opctions.activityInfo?opctions.activityInfo.coverPhotoUrl:'#'" />
-					</div>
 				</div>
 				<div class="date">
 					<p>{{opctions.startDate}}</p>
@@ -247,8 +244,6 @@
 					padding-bottom: 30px;
 					border-bottom: 1px solid #dde0e0;
 					.serviceform {
-						float: left;
-						width: 143px;
 						h3 {
 							font-size: 18px;
 							margin-bottom: 0;
@@ -259,16 +254,7 @@
 							font-size: 18px
 						}
 					}
-					.gideheadlog {
-						width: 138px;
-						height: 92px;
-						float: left;
-						margin-left: 19px;
-						img {
-							width: 100%;
-							height: 100%;
-						}
-					}
+					
 				}
 				.date {
 					padding: 30px 0;

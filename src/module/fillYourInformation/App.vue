@@ -34,19 +34,16 @@
 					<span>Your voucher will be sent here, make sure it is correct</span>
 
 				</div>
-				<div class="addOrderContact">
+				<div class="check">
+					<span>Check this box if the contact for the reservation does NOT match the Primary Traveler.</span>
+					<em v-if="check==0" @click="checkFn(0)" class="checkbox"></em>
+					<em v-if="check==1" @click="checkFn(1)" class="checkbox backgrond iconfont">&#xe61e;</em>
+				</div>
+				<div class="addOrderContact" v-if="check==1">
 					<ul>
 						<li>
+							<h4>Key Traveler</h4>
 
-							<h4>Key Traveler 
-								<label v-if="oderFirstName&&oderlastName&&emailAddress">
-									<span>(If the key traveller is the same as the reservee, please ticket the box)</span>
-									<em v-if="check==0" @click="checkFn(0)" class="checkbox"></em>
-									<em v-if="check==1"@click="checkFn(1)" class="checkbox backgrond iconfont">&#xe61e;</em>
-								</label>
-								
-								<!--<span class="checkbox iconfont"></span>-->
-							</h4>
 							<div class="name">
 								<div class="firstName">
 									<p>First name<b>*</b></p>
@@ -61,13 +58,14 @@
 							<div class="nuber">
 								<div class="paddnumber">
 									<p>Email Address<b>*</b></p>
-									<input :class="{err:TravelleremailAddressErr}" @focus="fousEmal" v-model="TravelleremailAddress" />
+									<input :class="{err:TravelleremailAddressErr}" @focus="fousidcard" v-model="TravelleremailAddress" />
 								</div>
 								<div class="Mobilephone">
 									<p>Mobile phone(optional)</p>
 									<input :class="{err:TravellerphoneErr}" @focus="fousphonenumb()" v-model="Travellerphone" />
 								</div>
 							</div>
+
 						</li>
 					</ul>
 
@@ -77,13 +75,13 @@
 					<div class="information">
 						<h4>Other required information</h4>
 						<textarea v-if="opctions.category=='Private Tour'" placeholder="please provide your hotel address so the guide can pick you up." v-model="comments"></textarea>
-						<textarea v-else  v-model="comments"></textarea>
-						
+						<textarea v-else v-model="comments"></textarea>
+
 						<div class="nextBtn clearfix">
 							<div class="next" @click="next">NEXT</div>
 							<div class="text">You ordered as a guest. To view your order details, you can click "My Bookings" on the top bar then type in the reservee's email address and name you entered before to access that information.</div>
 						</div>
-						
+
 					</div>
 				</div>
 			</div>
@@ -95,9 +93,7 @@
 							<p v-if="opctions.adultNum==1&&opctions.childrenNum==0">1 Person</p>
 							<p v-else>{{opctions.adultNum+opctions.childrenNum}} People</p>
 						</div>
-						<div class="gideheadlog">
-							<img :src="opctions.coverPhotoUrl" />
-						</div>
+						
 					</div>
 					<div class="date">
 						<p>{{opctions.startDate}}</p>
@@ -122,7 +118,7 @@
 				<div class="bookbtn">
 					<p>Pay with:</p>
 					<div class="payfor">
-						<img style="width:200px"  src="https://s3.us-east-2.amazonaws.com/localpanda.images/static/icon/stripe.png"/>
+						<img style="width:200px" src="https://s3.us-east-2.amazonaws.com/localpanda.images/static/icon/stripe.png" />
 					</div>
 					<div style=" width:316px;font-size: 16px;line-height: 20px;display: block; margin-top: 20px;"><b>Secure Payment:</b> </br>We use Stripe’s online payment system, which sends your payment info directly to Stripe’s secure servers, so your data is never sent to Local Panda’s servers and cannot be stolen.</div>
 				</div>
@@ -174,7 +170,8 @@
 				alertTitle: "", //弹框标题
 				logIn: '', //是否登陆
 				isShowAlert: false, //错误弹框
-				check: 0 //checked
+				check: 0, //checked
+				addOder: false
 			}
 
 		},
@@ -207,29 +204,22 @@
 				} else if(val.toString().split(".")[1].length <= 1) {
 					return val
 				} else {
-					return (parseFloat(this.cutXiaoNum(val, 1))+0.1).toFixed(1)
+					return(parseFloat(this.cutXiaoNum(val, 1)) + 0.1).toFixed(1)
 
 				}
 
 			},
 			checkFn(id) {
 				if(id == 0) {
-
 					this.check = 1
-					
-					this.TravellerFirstName = this.oderFirstName
-					console.log(this.TravellerFirstName)
-					this.TravellerlastName = this.oderlastName
-					this.TravelleremailAddress = this.emailAddress
-					this.Travellerphone = this.phone
-				} else {
 
+				} else {
 					this.check = 0
-					
 					this.TravellerFirstName = ''
 					this.TravellerlastName = ''
 					this.TravelleremailAddress = ''
 					this.Travellerphone = ''
+
 				}
 			},
 			getIsShowAlert(val) {
@@ -259,12 +249,12 @@
 
 				}
 			},
-			gabulr(){
+			gabulr() {
 				ga('gtag_UA_107010673_1.send', {
-				  hitType: 'event',
-				  eventCategory: 'Text Input',
-				  eventAction: 'Lose Focus',
-				  eventLabel: 'activity_booking_email', 
+					hitType: 'event',
+					eventCategory: 'Text Input',
+					eventAction: 'Lose Focus',
+					eventLabel: 'activity_booking_email',
 				});
 			},
 			fousOderfisrtname() {
@@ -308,6 +298,8 @@
 			},
 			next() {
 				const that = this
+				var obj;
+				//that.addOder = true
 				if(that.oderFirstName == "" || regExp.isNub(that.oderFirstName) || regExp.isCode(that.oderFirstName)) {
 					that.oderFirstNameErr = true
 					that.isShowAlert = true
@@ -324,59 +316,98 @@
 					that.phoneErr = true
 					that.isShowAlert = true
 					that.alertMessage = "There are required fields without values or with incorrect values. Please check the info you've provided and make sure all the required fields have been filled."
-				} else if(that.TravellerFirstName == "" || regExp.isNub(that.TravellerFirstName) || regExp.isCode(that.TravellerFirstName)) {
-					that.TravellerFirstNameErr = true
-					that.isShowAlert = true
-					that.alertMessage = "There are required fields without values or with incorrect values. Please check the info you've provided and make sure all the required fields have been filled."
-				} else if(that.TravellerlastName == "" || regExp.isNub(that.TravellerlastName) || regExp.isCode(that.TravellerlastName)) {
-					that.TravellerlastNameErr = true
-					that.isShowAlert = true
-					that.alertMessage = "There are required fields without values or with incorrect values. Please check the info you've provided and make sure all the required fields have been filled."
-				} else if(!regExp.isEmail(that.TravelleremailAddress)) {
-					that.TravelleremailAddressErr = true
-					that.isShowAlert = true
-					that.alertMessage = "There are required fields without values or with incorrect values. Please check the info you've provided and make sure all the required fields have been filled."
-				} else if(!regExp.isMobil(that.Travellerphone)) {
-					that.TravellerphoneErr = true
-					that.isShowAlert = true
-					that.alertMessage = "There are required fields without values or with incorrect values. Please check the info you've provided and make sure all the required fields have been filled."
 				} else {
-
-					let obj = {
-						"userId": that.opctions.userId,
-						"activityId": that.opctions.activityId,
-						"amount": that.opctions.amount,
-						"currency": "USD",
-						"adultNum": that.opctions.adultNum,
-						"childrenNum":that.opctions.childrenNum,
-						"infantNum": that.opctions.infantNum,
-						"startDate": that.opctions.startDate,
-						"startTime": that.opctions.startTime,
-						"averagePrice":that.opctions.averagePrice,
-						"childDiscount":that.opctions.childDiscount,
-						"comments": that.comments?that.comments:null,
-						"contactInfo": {
-							"firstName": that.oderFirstName,
-							"lastName": that.oderlastName,
-							"phoneNumber": that.phone?that.phone:null,
-							"emailAddress": that.emailAddress
-						},
-						"travelerInfo": {
-							"firstName": that.TravellerFirstName,
-							"lastName": that.TravellerlastName,
-							"phoneNumber": that.Travellerphone?that.Travellerphone:null,
-							"emailAddress": that.TravelleremailAddress
-						},
-						"utcOffset":new Date().getTimezoneOffset()/60*-1
-					}
-					console.log(obj.utcOffset)
-					that.axios.put("https://www.localpanda.com/api/activity/order/create", JSON.stringify(obj), {
-						headers: {
-							'Content-Type': 'application/json; charset=UTF-8'
+					if(that.check == 1) {
+						if(that.TravellerFirstName == "" || regExp.isNub(that.TravellerFirstName) || regExp.isCode(that.TravellerFirstName)) {
+							that.TravellerFirstNameErr = true
+							that.isShowAlert = true
+							that.alertMessage = "There are required fields without values or with incorrect values. Please check the info you've provided and make sure all the required fields have been filled."
+						} else if(that.TravellerlastName == "" || regExp.isNub(that.TravellerlastName) || regExp.isCode(that.TravellerlastName)) {
+							that.TravellerlastNameErr = true
+							that.isShowAlert = true
+							that.alertMessage = "There are required fields without values or with incorrect values. Please check the info you've provided and make sure all the required fields have been filled."
+						} else if(!regExp.isEmail(that.TravelleremailAddress)) {
+							that.TravelleremailAddressErr = true
+							that.isShowAlert = true
+							that.alertMessage = "There are required fields without values or with incorrect values. Please check the info you've provided and make sure all the required fields have been filled."
+						} else if(!regExp.isMobil(that.Travellerphone)) {
+							that.TravellerphoneErr = true
+							that.isShowAlert = true
+							that.alertMessage = "There are required fields without values or with incorrect values. Please check the info you've provided and make sure all the required fields have been filled."
+						} else {
+							obj = {
+								"userId": that.opctions.userId,
+								"activityId": that.opctions.activityId,
+								"amount": that.opctions.amount,
+								"currency": "USD",
+								"adultNum": that.opctions.adultNum,
+								"childrenNum": that.opctions.childrenNum,
+								"infantNum": that.opctions.infantNum,
+								"startDate": that.opctions.startDate,
+								"startTime": that.opctions.startTime,
+								"averagePrice": that.opctions.averagePrice,
+								"childDiscount": that.opctions.childDiscount,
+								"comments": that.comments ? that.comments : null,
+								"contactInfo": {
+									"firstName": that.oderFirstName,
+									"lastName": that.oderlastName,
+									"phoneNumber": that.phone ? that.phone : null,
+									"emailAddress": that.emailAddress
+								},
+								"travelerInfo": {
+									"firstName": that.TravellerFirstName,
+									"lastName": that.TravellerlastName,
+									"phoneNumber": that.Travellerphone,
+									"emailAddress": that.TravelleremailAddress
+								},
+								"utcOffset": new Date().getTimezoneOffset() / 60 * -1
+							}
+							if(that.addOder == false) {
+								that.axios.put("https://www.localpanda.com/api/activity/order/create", JSON.stringify(obj), {
+									headers: {
+										'Content-Type': 'application/json; charset=UTF-8'
+									}
+								}).then(function(response) {
+									
+									window.location.href = "payForActivity.html?objectId=" + response.data
+								}, function(response) {})
+							}
 						}
-					}).then(function(response) {
-						window.location.href="payForActivity.html?objectId="+response.data
-					}, function(response) {})
+					} else {
+						obj = {
+							"userId": that.opctions.userId,
+							"activityId": that.opctions.activityId,
+							"amount": that.opctions.amount,
+							"currency": "USD",
+							"adultNum": that.opctions.adultNum,
+							"childrenNum": that.opctions.childrenNum,
+							"infantNum": that.opctions.infantNum,
+							"startDate": that.opctions.startDate,
+							"startTime": that.opctions.startTime,
+							"averagePrice": that.opctions.averagePrice,
+							"childDiscount": that.opctions.childDiscount,
+							"comments": that.comments ? that.comments : null,
+							"contactInfo": {
+								"firstName": that.oderFirstName,
+								"lastName": that.oderlastName,
+								"phoneNumber": that.phone ? that.phone : null,
+								"emailAddress": that.emailAddress
+							},
+							"utcOffset": new Date().getTimezoneOffset() / 60 * -1
+						}
+						if(that.addOder == false) {
+							that.addOder = true
+							that.axios.put("https://www.localpanda.com/api/activity/order/create", JSON.stringify(obj), {
+								headers: {
+									'Content-Type': 'application/json; charset=UTF-8'
+								}
+							}).then(function(response) {
+								
+								window.location.href = "payForActivity.html?objectId=" + response.data
+							}, function(response) {})
+						}
+					}
+					console.log(that.addOder)
 
 				}
 			}
@@ -384,7 +415,7 @@
 		},
 		created: function() {
 			this.opctions = JSON.parse(localStorage.getItem("orderInfo"))
-			console.log(this.opctions)
+			
 		},
 		mounted: function() {
 			this.logIn = window.localStorage.getItem("logstate")
@@ -424,8 +455,7 @@
 						padding-bottom: 30px;
 						border-bottom: 1px solid #dde0e0;
 						.serviceform {
-							float: left;
-							width: 143px;
+							
 							h3 {
 								font-size: 18px;
 								margin-bottom: 0;
@@ -436,52 +466,40 @@
 								font-size: 18px
 							}
 						}
-						.gideheadlog {
-							width: 138px;
-							height: 92px;
-							float: left;
-							margin-left: 19px;
-							img {
-								width: 100%;
-								height: 100%;
-							}
-						}
 						
 					}
-					.date{
-							padding: 30px 0;
-							border-bottom:1px solid #dde0e0;
-							p{
-								font-size: 18px;
-							}
-							
-						}
-					.pic{
+					.date {
 						padding: 30px 0;
-						border-bottom:1px solid #dde0e0;
-						.adult{
-							.formula{
+						border-bottom: 1px solid #dde0e0;
+						p {
+							font-size: 18px;
+						}
+					}
+					.pic {
+						padding: 30px 0;
+						border-bottom: 1px solid #dde0e0;
+						.adult {
+							.formula {
 								float: left;
 								font-size: 18px;
-								
 							}
-							.adultPic{
+							.adultPic {
 								float: right;
 								font-size: 18px;
 							}
 						}
-						.child{
+						.child {
 							margin-top: 20px;
 							font-size: 18px;
-						}		
+						}
 					}
-					.total{
+					.total {
 						padding-top: 30px;
-						.totle-title{
+						.totle-title {
 							float: left;
 							font-size: 18px;
 						}
-						.totalPic{
+						.totalPic {
 							float: right;
 							font-size: 18px;
 							font-weight: bold;
@@ -570,6 +588,33 @@
 						margin-top: 16px;
 					}
 				}
+				.check {
+					margin-top: 40px;
+					position: relative;
+					span {
+						font-size: 16px;
+						color: #878e95;
+						margin-left: 40px;
+					}
+					.checkbox {
+						position: absolute;
+						left: 0;
+						width: 26px;
+						height: 26px;
+						text-align: center;
+						border: 1px solid #dde0e0;
+						border-radius: 50%;
+						top: 50%;
+						margin-top: -16px;
+						cursor: pointer;
+						line-height: 28px;
+						color: #fff;
+						font-size: 12px;
+					}
+					.backgrond {
+						background-image: linear-gradient(270deg, #009efd 0%, #1bbc9d 100%);
+					}
+				}
 				.addOrderContact {
 					margin-top: 40px;
 					padding-bottom: 34px;
@@ -581,7 +626,6 @@
 					ul {
 						li {
 							position: relative;
-							
 							border-bottom: 1px solid #dde0e0;
 							&:last-child {
 								border: none;
@@ -594,29 +638,6 @@
 								color: #353a3f;
 								margin-top: 40px;
 								font-weight: bold;
-								position: relative;
-								span {
-									font-size: 16px;
-									color: #878e95;
-								}
-								.checkbox {
-									position: absolute;
-									right: 0;
-									width: 26px;
-									height: 26px;
-									text-align: center;
-									border: 1px solid #1bbc9d;
-									border-radius: 50%;
-									top: 50%;
-									margin-top: -16px;
-									cursor: pointer;
-									line-height: 28px;
-									color: #fff;
-									font-size: 12px;
-								}
-								.backgrond {
-									background-image: linear-gradient(270deg, #009efd 0%, #1bbc9d 100%);
-								}
 							}
 							.name {
 								display: flex;
@@ -680,7 +701,7 @@
 							border-radius: 3px;
 							border: solid 1px #dde0e0;
 							resize: none;
-							padding:20px;
+							padding: 20px;
 							font-size: 18px;
 						}
 						p {
@@ -691,7 +712,7 @@
 							}
 						}
 					}
-					.nextBtn{
+					.nextBtn {
 						margin-top: 20px;
 						.next {
 							width: 90px;
@@ -699,24 +720,22 @@
 							font-weight: bold;
 							float: left;
 							text-align: center;
-							line-height:46px ;
+							line-height: 46px;
 							background-image: linear-gradient(270deg, #009efd 0%, #1bbc9d 100%);
 							color: #fff;
 							border-radius: 20px;
 							font-size: 16px;
 							cursor: pointer;
 						}
-						.text{
+						.text {
 							float: left;
 							width: 568px;
 							margin-left: 30px;
 							color: red;
 							font-size: 14px;
-							 word-break:break-all;
-							
+							word-break: break-all;
 						}
 					}
-					
 				}
 			}
 		}

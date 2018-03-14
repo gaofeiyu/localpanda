@@ -21,8 +21,8 @@
 					<div>
 						<i class="iconfont" style="font-size: 17px;">&#xe649;</i>Contact
 					</div>
-					<p>+86 21 80182090</p>
-					<p>+1-818-404-8141</p>
+					<p>+86 (21) 8018-2090</p>
+					<p>+1 (888) 930-8849 (US toll free)</p>
 					<p>service@localpanda.com</p>
 					
 				</div>
@@ -192,7 +192,7 @@
 		},
 		
 		created(){
-			this.deviceWidth = document.documentElement.clientWidth
+			
 		}
 	}
 </script>
