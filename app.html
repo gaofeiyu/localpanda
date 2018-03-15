@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html {{ HTML_ATTRS }}>
+  <head>  
+    <meta name="viewport" content="width=device-width, initial-scale=0,user-scalable=yes,maximum-scale=1.0">
+    <link rel="shortcut icon" href="https://d2q486kjf9cwwu.cloudfront.net/static/icon/favicon.ico" type="image/x-icon">
+    {{ HEAD }}
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-107010673-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments)};
+      gtag('js', new Date());
+
+      gtag('config', 'UA-107010673-1');
+    </script>
+    <script>
+		var ua = navigator.userAgent;
+		var ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
+			isIphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
+			isAndroid = ua.match(/(Android)\s+([\d.]+)/),
+			isMobile = isIphone || isAndroid,
+		 	viewport = document.querySelector("meta[name=viewport]");
+		if(isIphone || ipad) {
+				viewport.setAttribute('content', "width=1500 ,user-scalable=yes,maximum-scale=0.5");
+		} else {
+				viewport.setAttribute('content', "width=device-width, initial-scale=0,user-scalable=yes,maximum-scale=1.0");
+		}
+	</script>
+  </head>
+  <body {{ BODY_ATTRS }} >
+    {{ APP }}
+  </body>
+</html>
